@@ -14,7 +14,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $data['page_title'] = 'Rivera, J. — BSIT Student Hub';
+        $data['page_title'] = 'Student Home';
 
         // Visiting the home page is what grants access to the protected
         // profile route below — this is this student's chosen "unique
@@ -46,7 +46,7 @@ class StudentController extends Controller
      */
     public function profile()
     {
-        $data['page_title'] = 'JRMYY.io — BSIT Profile';
+        $data['page_title'] = 'Student Profile';
 
         $data['student'] = [
             'student_id'  => 'MCC2024-00230',
