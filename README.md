@@ -2,7 +2,6 @@
 
 > A lightweight, fast PHP framework built for developers who want clean MVC architecture without unnecessary complexity or performance overhead.
 
-JEREMY
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![PHP Version](https://img.shields.io/badge/PHP-%3E%3D7.4-8892BF)](https://www.php.net/)
