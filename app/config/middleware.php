@@ -1,44 +1,45 @@
 <?php
 defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
-/**
- * ------------------------------------------------------------------
- * LavaLust - an opensource lightweight PHP MVC Framework
- * ------------------------------------------------------------------
- *
- * MIT License
- *
- * Copyright (c) 2020 Ronald M. Marasigan
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- * @package LavaLust
- * @author Ronald M. Marasigan <ronald.marasigan@yahoo.com>
- * @since Version 4
- * @link https://github.com/ronmarasigan/LavaLust
- * @license https://opensource.org/licenses/MIT MIT License
- */
-/*
-|--------------------------------------------------------------------------
-| Adding of middlewares
-|--------------------------------------------------------------------------
-|
-| Used for adding middlewares
-|
-*/
-$config['middlewares'] = [];
+
+class StudentMiddleware extends Middleware
+{
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    /**
+     * Guards access to /student/profile.
+     *
+     * Unique access condition for this activity: the visitor must have
+     * a session flag 'student_access' set to true AND a session flag
+     * 'jrmyy_pass' equal to the string 'granted'. This double-check is
+     * this student's individualized twist on the basic middleware pattern
+     * described in the lab (most versions only check one flag).
+     */
+    public function handle()
+    {
+        session_start();
+
+        // Simulate the access condition being granted the first time the
+        // student visits (in a real app this would come from a login step).
+        if (!isset($_SESSION['student_access'])) {
+            $_SESSION['student_access'] = true;
+            $_SESSION['jrmyy_pass'] = 'granted';
+        }
+
+        $allowed = isset($_SESSION['student_access'])
+            && $_SESSION['student_access'] === true
+            && isset($_SESSION['jrmyy_pass'])
+            && $_SESSION['jrmyy_pass'] === 'granted';
+
+        if (!$allowed) {
+            // Unauthorized: bounce back to the student home page
+            redirect('student');
+            exit;
+        }
+
+        // Allowed: let the request continue to StudentController::profile()
+        return true;
+    }
+}
