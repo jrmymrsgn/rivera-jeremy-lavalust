@@ -110,24 +110,7 @@
             font-weight: 600;
             color: var(--text-main);
         }
-        .access-note {
-            position: absolute;
-            top: -18px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.85rem;
-            color: var(--success);
-            background: #0b1220;
-            border: 1px solid rgba(74,222,128,0.35);
-            padding: 10px 18px;
-            border-radius: 999px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-            animation: toast-life 3.2s ease forwards;
-            z-index: 10;
-            white-space: nowrap;
+        
         }
         @keyframes toast-life {
             0%   { opacity: 0; transform: translateX(-50%) translateY(6px) scale(0.9); }
@@ -217,7 +200,7 @@
             <tr><td class="label">Hobbies:</td><td class="val"><?= $student['hobbies'] ?? ''; ?></td></tr>
         </table>
 
-        <span class="access-note">&#10003; Access granted via StudentMiddleware</span>
+       
 
         <?php if (!empty($socials)) : ?>
         <div class="socials">
