@@ -14,12 +14,12 @@ COPY . /var/www/html/
 # Set Apache DocumentRoot to /public
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 
+# Update Apache configuration to use /public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
-    /etc/apache2/sites-available/*.conf \
-    /etc/apache2/apache2.conf \
-    /etc/apache2/conf-available/*.conf
+    /etc/apache2/sites-available/000-default.conf \
+    /etc/apache2/apache2.conf
 
-# Allow .htaccess overrides
+# Allow .htaccess overrides in the public directory
 RUN sed -i '/<Directory \/var\/www\/html\/public>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' \
     /etc/apache2/apache2.conf
 
