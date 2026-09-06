@@ -2,13 +2,11 @@
 defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
 class UsersController extends Controller {
-    public function __construct() {
-        parent::__construct();
-        $this->call->model('UsersModel');
-    }
 
-    public function index() {
-        $data['users'] = $this->UsersModel->all();
+    public function show_users() {
+        $data['users'] = $this->UsersModel->all();  
         $this->call->view('UserView', $data);
     }
+
+    //methods
 }

@@ -129,13 +129,20 @@
     </style>
 </head>
 <body>
+    <?php
+        // Normalize: if $users is a single record (find()), wrap it in an array.
+        // If it's already a list of records (all()), leave it as-is.
+        if (isset($users['id'])) {
+            $users = [$users];
+        }
+    ?>
     <div class="wrap">
         <div class="masthead">
             <div>
                 <h1>User Management Module</h1>
                 <div class="path">mydb / users</div>
             </div>
-            <span class="count"><?= count($users) ?> records</span>
+            <span class="count"><?= count($users) ?> record<?= count($users) === 1 ? '' : 's' ?></span>
         </div>
 
         <div class="panel">
